@@ -7,24 +7,17 @@ class TodoCounter {
     this._updateText();
   }
 
-  // Call this when a checkbox is clicked, and when a completed
-  // to-do is deleted.
   updateCompleted = (increment) => {
     this._completed += increment ? 1 : -1;
     this._updateText();
   };
 
-  // Call this when a to-do is deleted, or when a to-do is
-  // created via the form.
   updateTotal = (increment) => {
     this._total += increment ? 1 : -1;
     this._updateText();
   };
 
-  // Call the method to update the text content
   _updateText() {
-    // Sets the text content of corresponding text element.
-    // Call this in the constructor, and whenever the counts get updated.
     this._element.textContent = `Showing ${this._completed} out of ${this._total} completed`;
   }
 }
