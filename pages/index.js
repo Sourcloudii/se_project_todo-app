@@ -19,10 +19,12 @@ function updateTodoTotal(increment) {
   todoCounter.updateTotal(increment);
 }
 
-function handleDeleteTodo(todoElement) {
-  if (todoElement) {
-    todoCounter.updateTotal(false);
+function handleDeleteTodo(completed) {
+  if (completed) {
     todoCounter.updateCompleted(false);
+    todoCounter.updateTotal(false);
+  } else {
+    todoCounter.updateTotal(false);
   }
 }
 
@@ -33,15 +35,17 @@ const generateTodo = (data) => {
   return todoElement;
 };
 
+const renderTodos = (items) => {
+    const todoElement = generateTodo(items);
+    section.addItem(todoElement);
+};
+
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
 
 const section = new Section({
   items: initialTodos,
-  renderer: (item) => {
-    const todo = generateTodo(item);
-    section.addItem(todo);
-  },
-  containerSelector: ".todos__list",
+  renderer: renderTodos,
+  containerSelector: ".todos__list"
 });
 
 section.renderItems();
@@ -59,7 +63,7 @@ const addTodoPopup = new PopupWithForm({
     const values = { name, date, id };
 
     updateTodoTotal(true);
-    section.addItem(generateTodo(values));
+    renderTodos(values);
     addTodoPopup.close(addTodoPopupEl);
     todoValidator.resetValidation();
   },
