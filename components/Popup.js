@@ -1,6 +1,7 @@
 class Popup {
   constructor({ popupSelector }) {
     this._popupEl = document.querySelector(popupSelector);
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   setEventListeners() {
@@ -19,7 +20,7 @@ class Popup {
 
   open() {
   this._popupEl.classList.add("popup_visible");
-  document.addEventListener("keydown", this._handleEscClose.bind(this));
+  document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
